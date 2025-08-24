@@ -5,3 +5,4 @@ custom_azure.py
 *.csv
 *.json
 *.xlsx
+*.ss
