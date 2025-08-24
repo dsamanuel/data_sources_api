@@ -2,4 +2,4 @@
 /scripts
 /__pycache__
 custom_azure.py
-.csv
+*.csv
