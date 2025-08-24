@@ -59,10 +59,9 @@ def get_all_time_entries():
 
       
         headers = { 'Content-Type':"application/json", 
-         
-           'X-API-KEY': 'E6Urjrvc4svlD5lAVA9VBBuhDmsxVqKEfpRmHw8Y488',
-           'X-API-SECRET': "U*fNmMwM@G!37UI3s@@0r24SKK3OfMOU",
-            "authentication_token" : "E6Urjrvc4svlD5lAVA9VBBuhDmsxVqKEfpRmHw8Y488",
+           'X-API-KEY': os.getenv("X_API_KEY"),
+            'X-API-SECRET': os.getenv("X_API_SECRET"),
+            "authentication_token" : os.getenv("authentication_token"),
            } 
 
       
