@@ -31,35 +31,42 @@ response = requests.get(url, headers=headers).json()
 
 #data = response['data']
 df = pd.json_normalize(response, record_path = ['data'])
-
-print(df)
+delta_days = (end_date - start_date).days
 
 #df.to_csv('devices.csv')
 all_records = []  
 for serial in df['serial']:
     serial = serial.strip()
 
-
-
-    durl = f"{base_url}/{serial}/records?"
-
-
-
-    while True:
-    
    
-        response = requests.get(durl, headers=headers, params=params).json()
-        print(response)
-        data = response['data']
-        for item in data:
-            item["serial"] = serial
 
-        all_records.extend(data)
+
+    for i in range(delta_days + 1):
+        current_date = start_date + timedelta(days=i)
+
+        format_start_date = current_date.strftime("%Y-%m-%d")
+        format_end_date = current_date.strftime("%Y-%m-%d")
+            
+    
+
+        durl = f"{base_url}/{serial}/records?from={format_start_date}&to={format_end_date}"
         
-        if not response['data'] or len(response['data']) < params['per_page']:
-            break
+
+        while True:
         
-        params['page'] += 1
+    
+            response = requests.get(durl, headers=headers, params=params).json()
+            print(response)
+            data = response['data']
+            for item in data:
+                item["serial"] = serial
+
+            all_records.extend(data)
+            
+            if not response['data'] or len(response['data']) < params['per_page']:
+                break
+            
+            params['page'] += 1
 
 
 
