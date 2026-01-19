@@ -1,3 +1,2 @@
-Reading Files from APIs
-Two Sites with Api keys 
-Authentication token
+# Python/Pandas Api
+#### An API, or application programming interface, is a set of rules or protocols that enables software applications to communicate with each other to exchange data, features and functionality.
