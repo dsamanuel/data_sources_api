@@ -27,7 +27,7 @@ if response.status_code == 200:
     #all_time_entries = [dataj for dataj in res['objects'] if dataj.get('form').get('@xmlns') == "http://openrosa.org/formdesigner/8FE19BA3-6F29-4E75-901B-82E1C5563495"]
     
     for dataj in data['objects']:
-        #print(dataj['form']['@xmlns'])
-        print(dataj['form']['@xmlns'] == "http://openrosa.org/formdesigner/8FE19BA3-6F29-4E75-901B-82E1C5563495")
+        print(dataj['form']['@xmlns'])
+        #print(dataj['form']['@xmlns'] == "http://openrosa.org/formdesigner/8FE19BA3-6F29-4E75-901B-82E1C5563495")
 else:
     print(f"Failed to retrieve data: {response.status_code} - {response.text}")

@@ -1,4 +1,6 @@
 
+from urllib import response
+
 import requests
 import json
 import pandas as pd
@@ -30,6 +32,7 @@ def get_all_time_entries():
     URL = f"https://commcarehq.org/{DOMAIN}/api/v0.5/form/"
 
 
+
    
 
 
@@ -40,18 +43,20 @@ def get_all_time_entries():
         }
    
     #http://openrosa.org/formdesigner/8FE19BA3-6F29-4E75-901B-82E1C5563495', 
+    
    
     querystring = {'limit': 1000 }
 
 
     page = 1
-    response = requests.get(URL, headers=headers)
+    response = requests.get(URL, headers=headers, params=querystring)
 
     if response.status_code == 200:
+        print("Successfully retrieved data")
         data = response.json()
         # CommCare uses cursor pagination for large datasets
-        for case in data['objects']:
-            print(case['properties'].get('case_name'))
+        for dataj in data['objects']:
+            print(dataj.get('form').get('@xmlns'))
     else:
         print(f"Error: {response.status_code}", response.text)
         # find out total number of pages
@@ -59,8 +64,8 @@ def get_all_time_entries():
         print(response)
 
 
-
-    data = res['objects']
+    """  res = response.json()
+   
     all_time_entries = [dataj for dataj in res['objects'] if dataj.get('form').get('@xmlns') == "http://openrosa.org/formdesigner/8FE19BA3-6F29-4E75-901B-82E1C5563495"]
     
  
@@ -107,6 +112,7 @@ def get_all_time_entries():
   
 data = get_all_time_entries()
 df = pd.DataFrame(data)
-df.to_csv("commcare_data.csv")
+df.to_csv("commcare_data.csv") """
+
 get_all_time_entries()
 
