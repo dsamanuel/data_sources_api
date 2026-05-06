@@ -1,14 +1,12 @@
-import requests
 
-from datetime import datetime
-from requests.auth import HTTPBasicAuth
+import requests
 import json
 import pandas as pd
 
-from itertools import chain
-
 import os
+
 from dotenv import load_dotenv
+
 
 load_dotenv() 
 
@@ -22,24 +20,24 @@ load_dotenv()
 
 
 
+
+
 def get_all_time_entries():
-    
-    base_url = os.getenv("comm_url")
+    DOMAIN = os.getenv("DOMAIN")
+    USERNAME = os.getenv("USERNAME")
+    API_KEY = os.getenv("API_KEY")
+
+    URL = f"https://commcarehq.org/{DOMAIN}/api/v0.5/form/"
 
 
    
 
 
     
-    headers = { 
-                "Content-Type":"application/json",
-               
-                "Authorization":os.getenv("comm_auth"),
-                
-       
-           
-        
-           }
+    headers = {
+         "Authorization": f"ApiKey {USERNAME}:{API_KEY}",
+         "Content-Type": "application/json"
+        }
    
     #http://openrosa.org/formdesigner/8FE19BA3-6F29-4E75-901B-82E1C5563495', 
    
@@ -47,13 +45,22 @@ def get_all_time_entries():
 
 
     page = 1
-    
-    # find out total number of pages
-    res = requests.get(url=base_url, headers=headers, params=querystring).json()
-    print(res)
-    cursor = res.get('meta').get('next')
-    print(cursor)
-    #data = res['objects']
+    response = requests.get(URL, headers=headers)
+
+    if response.status_code == 200:
+        data = response.json()
+        # CommCare uses cursor pagination for large datasets
+        for case in data['objects']:
+            print(case['properties'].get('case_name'))
+    else:
+        print(f"Error: {response.status_code}", response.text)
+        # find out total number of pages
+        
+        print(response)
+
+
+
+    data = res['objects']
     all_time_entries = [dataj for dataj in res['objects'] if dataj.get('form').get('@xmlns') == "http://openrosa.org/formdesigner/8FE19BA3-6F29-4E75-901B-82E1C5563495"]
     
  
@@ -101,4 +108,5 @@ def get_all_time_entries():
 data = get_all_time_entries()
 df = pd.DataFrame(data)
 df.to_csv("commcare_data.csv")
+get_all_time_entries()
 
