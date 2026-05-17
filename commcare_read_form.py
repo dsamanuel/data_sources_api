@@ -70,5 +70,5 @@ if __name__ == "__main__":
         df = pd.DataFrame(forms_data)
         df.to_csv("commcare_forms.csv", index=False)  # Save to CSV for further analysis
         print("\nExample Form Preview:")
-        print(f"Form ID: {forms_data[0].get('form_id')}")
-        print(f"Form Name: {forms_data[0].get('properties', {}).get('form_name')}")
+        print(f"Form Name: {forms_data[0].get('form').get('@name')}")
+        print(f"Form Id: {forms_data[0].get('id')}")
