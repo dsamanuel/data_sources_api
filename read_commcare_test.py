@@ -10,8 +10,9 @@ load_dotenv()
 # Configuration
 DOMAIN = os.getenv("DOMAIN")
 API_KEY = os.getenv("API_KEY")
-USERNAME = os.getenv("USERNAME")
-URL = f"https://commcarehq.org/{DOMAIN}/api/v0.5/form/"
+USERNAME = 'hwoldeamanuel@mercycorps.org'
+URL = f"https://commcarehq.org/a/{DOMAIN}/api/v0.5/case/"
+
 
 headers = {
     "Authorization": f"ApiKey {USERNAME}:{API_KEY}",
@@ -19,6 +20,7 @@ headers = {
 }
 
 # Pulling data
+print(USERNAME, API_KEY, DOMAIN, URL)
 response = requests.get(URL, headers=headers)
 
 if response.status_code == 200:

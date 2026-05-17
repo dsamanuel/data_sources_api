@@ -26,10 +26,10 @@ load_dotenv()
 
 def get_all_time_entries():
     DOMAIN = os.getenv("DOMAIN")
-    USERNAME = os.getenv("USERNAME")
+    USERNAME = os.getenv("UNAME")
     API_KEY = os.getenv("API_KEY")
-
-    URL = f"https://commcarehq.org/{DOMAIN}/api/v0.5/form/"
+    commcare_auth = os.getenv("comm_auth")
+    URL = f"https://commcarehq.org/a/{DOMAIN}/api/v0.5/form/"
 
 
 
@@ -38,7 +38,7 @@ def get_all_time_entries():
 
     
     headers = {
-         "Authorization": f"ApiKey {USERNAME}:{API_KEY}",
+         "Authorization": commcare_auth,
          "Content-Type": "application/json"
         }
    
@@ -49,6 +49,7 @@ def get_all_time_entries():
 
 
     page = 1
+    print(USERNAME, API_KEY)
     response = requests.get(URL, headers=headers, params=querystring)
 
     if response.status_code == 200:
