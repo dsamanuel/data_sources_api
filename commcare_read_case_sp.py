@@ -42,7 +42,7 @@ def fetch_commcare_cases():
         
         # Extract metadata and individual case payloads
         meta = data.get("meta", {})
-        objects = [dataj for dataj in data['objects'] if dataj.get('properties', {}).get('case_type') == "sample"]
+        objects = [dataj for dataj in data['objects'] if dataj.get('properties', {}).get('case_type') == "institution"]
                   
         all_cases.extend(objects)
         
