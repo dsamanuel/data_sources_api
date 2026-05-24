@@ -9,7 +9,6 @@ from itertools import chain
 from dotenv import load_dotenv
 
 
-#djflk
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
 

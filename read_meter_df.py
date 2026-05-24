@@ -42,7 +42,7 @@ def get_all_time_entries():
     
 
 
-    # loop through all pages and return JSON object
+    # looping through all pages and return JSON object
     while True:
         base_url = os.getenv("base_url")+"customers?cursor="+str(cursor)    
 
